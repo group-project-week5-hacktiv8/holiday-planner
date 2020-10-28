@@ -29,6 +29,44 @@ class ApiController {
                 next(err);
             })
     }
+
+// API to get flight price, required origin, destination and date
+// still dont know how to get the parameters
+
+    static getFlight(req, res, next) {
+        // to get data please add the body { origin, destination, date }
+        const { origin, destination, date } = req.body
+        axios({
+            "method": "GET",
+            "url": `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browseroutes/v1.0/ID/IDR/en-US/${origin.toUpperCase()}-sky/${destination.toUpperCase()}-sky/${date}`,
+            "headers": {
+                "content-type":"application/octet-stream",
+                "x-rapidapi-host": process.env.RAPIDAPIHOST,
+                "x-rapidapi-key":process.env.RAPIDAPIKEY,
+                "useQueryString":true
+            },"params": {
+                "inboundpartialdate":date
+            }
+        })
+        .then(({data}) => {
+            res.status(200).json(data)
+        })
+        .catch((err) => {
+            console.log(err)
+            next(err)
+        })
+        }
+
+        // API to get Corona data
+    static getCorona(req, res, next) {
+        axios.get('http://opendata.arcgis.com/datasets/0c0f4558f1e548b68a1c82112744bad3_0.geojson')
+        .then(({ data }) => {
+            res.status(200).json(data)
+        })
+        .catch(err => {
+            next(err)
+        })
+    }
 }
 
 module.exports = ApiController
