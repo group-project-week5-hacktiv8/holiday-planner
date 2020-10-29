@@ -4,7 +4,15 @@ class ApiController {
     static getHoliday(req, res, next) {
         axios.get(`https://calendarific.com/api/v2/holidays?api_key=${process.env.CALENDARIFICAPIKEY}&country=ID&year=2020`)
             .then(({ data }) => {
-                res.status(200).json(data)
+                let newData = []
+                data.response.holidays.forEach(el => {
+                    newData.push({
+                        name: el.name,
+                        description: el.description,
+                        date: el.date.iso
+                    })
+                })
+                res.status(200).json(newData)
             })
             .catch(err => {
                 return next(err)

@@ -9,7 +9,7 @@ $(document).ready(function () {
 });
 
 function landingPage() {
-    fetchHoliday()
+    // fetchHoliday()
     $("#landing-Page").show()
     $("#login-Register-Page").hide()
     $('#holiday').hide()
@@ -91,7 +91,7 @@ function signOut() {
 $(".btn-logout").click(function () {
     localStorage.removeItem('access_token')
     localStorage.removeItem('email')
-    // signOut()
+    signOut()
     $("#email").val('')
     $("#password").val('')
     loginRegisterPage()
