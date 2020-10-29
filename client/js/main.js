@@ -9,23 +9,30 @@ $(document).ready(function () {
 });
 
 function landingPage() {
-    // fetchHoliday()
     $("#landing-Page").show()
     $("#login-Register-Page").hide()
-    $('#holiday').hide()
+    $('#plan').hide()
+}
+
+function home() {
+    $("#login-Register-Page").hide()
+    $('#plan').hide()
+    $('#home').show()
+}
+
+function planHoliday() {
+    fetchHoliday()
+    $("#login-Register-Page").hide()
+    $('#plan').show()
+    $('#home').hide()
 }
 
 function loginRegisterPage() {
     $("#landing-Page").hide()
     $("#login-Register-Page").show()
-    $('#holiday').hide()
+    $('#plan').hide()
 }
 
-function fetchHolidayBtn() {
-    $("#landing-Page").hide()
-    $("#login-Register-Page").hide()
-    $('#holiday').show()
-}
 function LoginClear() {
     $("#email").val("")
     $("#password").val("")
@@ -97,10 +104,6 @@ $(".btn-logout").click(function () {
     loginRegisterPage()
 })
 
-$(".rec-holiday").click(function() {
-    fetchHoliday()
-})
-
 function onSignIn(googleUser) {
     var google_access_token = googleUser.getAuthResponse().id_token;
 
@@ -125,25 +128,22 @@ function fetchHoliday() {
         url: baseUrl + '/holiday',
         headers: {
             access_token: localStorage.access_token
-        }
+        },
     })
         .done(result => {
-            result.response.holidays.forEach(el => {
-                if (el.type[0] === "National holiday")
-                    console.log(el.date.iso);
-                    $('#holiday').append(`
-                    // <div class="card">
-                    //     <div class="sliderText">
-                    //         <h3>${el.date.iso}</h3>
-                    //     </div>
-                    //     <div class="card-content">
-                    //         <h4>${el.name}</h4>
-                    //     </div>
-                    // </div>
+            let data = result.slice(29, 40)
+            data.forEach(el => {
+                if (el.type === "National holiday")
+                    $('#holiday').append(`      
+                        <div class="card">
+                            <h5>${el.date}</h5>
+                            <p>${el.name}</p>
+                        </div>
                 `)
             })
         })
         .fail(function (err) {
             console.log(err)
         })
+
 }
