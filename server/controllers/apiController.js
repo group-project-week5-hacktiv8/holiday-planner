@@ -16,7 +16,7 @@ class ApiController {
         axios({
             url: `https://www.air-port-codes.com/api/v1/multi?term=${term}`,
             method: 'post',
-            headers: { "APC-Auth": process.env.APC-Auth, 'APC-Auth-Secret': process.env.APC-Auth-Secret }
+            headers: { "APC-Auth": 'b294acc3ce', 'APC-Auth-Secret': 'e4c5fb72ac6badf' }
         })
             .then(({data}) => {
                 let newdata = []
@@ -49,7 +49,22 @@ class ApiController {
             }
         })
         .then(({data}) => {
-            res.status(200).json(data)
+            let newData = []
+            data.Quotes.forEach(el => {
+                newData.push("Quotes", {
+                    Price: el.MinPrice, 
+                    Direct: el.Direct, 
+                    Date: el.OutboundLeg.DepartureDate,
+                    MaskapaiId: el.OutboundLeg.CarrierIds[0]
+                })
+            })
+            data.Carriers.forEach(el => {
+                newData.push("Carrier", {
+                    MaskapaiId: el.CarrierId,
+                    MaskapaiName: el.Name
+                })
+            })
+            res.status(200).json(newData)
         })
         .catch((err) => {
             console.log(err)

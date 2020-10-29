@@ -53,7 +53,7 @@ class UsersController {
                         email: user.email
                     }
                     const access_token = generateToken(data)
-                    return res.status(200).json({ access_token })
+                    return res.status(200).json({ access_token, message: 'Login Success' })
                 }
             })
             .catch(err => {
