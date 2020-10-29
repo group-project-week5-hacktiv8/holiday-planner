@@ -9,7 +9,8 @@ class ApiController {
                     newData.push({
                         name: el.name,
                         description: el.description,
-                        date: el.date.iso
+                        date: el.date.iso,
+                        type: el.type[0]
                     })
                 })
                 res.status(200).json(newData)
@@ -83,6 +84,16 @@ class ApiController {
         // API to get Corona data
     static getCorona(req, res, next) {
         axios.get('http://opendata.arcgis.com/datasets/0c0f4558f1e548b68a1c82112744bad3_0.geojson')
+        .then(({ data }) => {
+            res.status(200).json(data)
+        })
+        .catch(err => {
+            next(err)
+        })
+    }
+
+    static getPicture(req, res, next){
+        axios.get(`https://pixabay.com/api/?key=${process.env.PIXABAY_ID}&q=holiday&image_type=photo`)
         .then(({ data }) => {
             res.status(200).json(data)
         })
