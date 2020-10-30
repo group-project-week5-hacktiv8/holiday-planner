@@ -6,11 +6,18 @@
     <meta name="viewpocontent=" width=device-width, initial-scale=1.0" />
     <meta name="google-signin-client_id"
         content="353379763941-s3661df8mvre4j4bldjvj1mkdk1ddafv.apps.googleusercontent.com">
+    <!-- datatables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/autofill/2.3.5/css/autoFill.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css"> -->
+
     <title>Holiday Planner</title>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <!-- <link rel="stylesheet" type="text/css" href="./font/flaticon.css"> -->
     <link rel="stylesheet" href="./css/style.css" />
+    
 </head>
 
 <body id="app">
@@ -104,6 +111,23 @@
                 <p>Stay healthy, keep your distance, and adhere to health protocols by doing social distancing and wearing a mask</p>
             </div>
         </div>
+        <input href="#" style="--i: 0.05s;" class="btn solid" type="button" value="Covid Data" onclick="covidTable()">
+    </div>
+
+    <div id="covid-data-table">
+        <table id="covid-table">
+            <thead>
+                <tr>
+                    <th>Profinsi</th>
+                    <th>Positif</th>
+                    <th>Meninggal</th>
+                    <th>Sembuh</th>
+                </tr>
+            </thead>
+            <tbody id="covid-data">
+            </tbody>
+        </table>
+        <input href="#" style="--i: 0.05s;" class="btn solid" type="button" value="Back" onclick="backHome()">
     </div>
 
     <!--LOGIN REGISTER-->
@@ -188,6 +212,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
         integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
         crossorigin="anonymous"></script>
+        <!-- datatables -->
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <!-- <script src="https://cdn.datatables.net/autofill/2.3.5/js/dataTables.autoFill.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js" type="text/javascript"></script> -->
+
     <script src="./js/style.js"></script>
     <script src="./js/main.js"></script>
 </body>

@@ -6,6 +6,7 @@ $(document).ready(function () {
     } else {
         loginRegisterPage()
     }
+    $("#covid-data-table").hide()
 });
 
 function landingPage() {
@@ -40,6 +41,20 @@ function fetchCorona() {
     $("#landing-Page").hide()
     $("#login-Register-Page").hide()
     fetchCoronxa()
+}
+
+function covidTable() {
+    $("#covid-data-table").show()
+    $("#covid").hide()
+    $("#landing-Page").hide()
+    $("#login-Register-Page").hide()
+}
+
+function backHome() {
+    $("#covid-data-table").hide()
+    $("#covid").hide()
+    $("#landing-Page").show()
+    $("#login-Register-Page").hide()
 }
 
 function LoginClear() {
@@ -147,7 +162,19 @@ function fetchHoliday() {
         },
     })
         .done(result => {
-            let data = result.slice(29, 40)
+            // let data = result.slice(29, 40)
+            let dateNow = (new Date()).toISOString().substr(0, 10)
+            // console.log(dateNow)
+            let data = result.filter(el => {
+                if (el.date >= dateNow) {
+                    return el
+                }
+            })
+            $('#holiday').empty()
+            $('#holiday').append(`
+            <div>
+                <h3>Date Recommendation : </h3>
+            </div>`)
             data.forEach(el => {
                 if (el.type === "National holiday")
                     $('#holiday').append(`      
@@ -174,25 +201,34 @@ function fetchCorona() {
     })
         .done(result => {
             result.forEach(el => {
-                    $('#covid').append(`      
-                    <div class="box">
-                        <h3>${el.Provinsi}</h3>
-                        <h5>Provinsi</h5>
-                    </div>
-                    <div class="box">
-                        <h3>${el.Positif}</h3>
-                        <h5>Positif</h5>
-                    </div>
-                    <div class="box">
-                        <h3>${el.Meninggal}</h3>
-                        <h5>Meninggal</h5>
-                    </div>
-                    <div class="box">
-                        <h3>${el.Sembuh}</h3>
-                        <h5>Sembuh</h5>
-                    </div>
+                    $('#covid-data').append(`
+                    <tr>
+                        <td>${el.Provinsi}</td>
+                        <td>${el.Positif}</td>
+                        <td>${el.Meninggal}</td>
+                        <td>${el.Sembuh}</td>
+                    </tr> 
                 `)
+                //     $('#covid').append(`      
+                //     <div class="box">
+                //         <h3>${el.Provinsi}</h3>
+                //         <h5>Provinsi</h5>
+                //     </div>
+                //     <div class="box">
+                //         <h3>${el.Positif}</h3>
+                //         <h5>Positif</h5>
+                //     </div>
+                //     <div class="box">
+                //         <h3>${el.Meninggal}</h3>
+                //         <h5>Meninggal</h5>
+                //     </div>
+                //     <div class="box">
+                //         <h3>${el.Sembuh}</h3>
+                //         <h5>Sembuh</h5>
+                //     </div>
+                // `)
             })
+            $('#covid-table').DataTable()
         })
         .fail(function (err) {
             console.log(err)
