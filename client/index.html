@@ -9,6 +9,8 @@
     <title>Holiday Planner</title>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" -->
+    <!-- type="text/javascript"></script> -->
     <!-- <link rel="stylesheet" type="text/css" href="./font/flaticon.css"> -->
     <link rel="stylesheet" href="./css/style.css" />
 </head>
@@ -63,11 +65,17 @@
                     <form>
                         <h1>Plan your Holiday</h1>
                         <div class="form-box">
-                            <input type="search" class="field origin" placeholder="Your Origin Place" required>
-                            <input type="text" class="field destination autocomplete"
-                                placeholder="Your Destination Place" required>
-                            <input type="date" class="field date" placeholder="date">
-                            <button class="plan-btn" type="submit" onclick="fetchCorona()">Submit</button>
+                            <input type="text" id='term-origin'>
+                            <button id="search-origin-airport" onclick="autoCompleteOrigin()">Search Airport</button>
+                            <select name="" id="input-origin"></select>
+                            <input type="text" id='term-destination'>
+                            <button id="search-destination-airport" onclick="autoCompleteDestination()">Search Destination Airport</button>
+                            <select name="" id="input-destination"></select>
+                            <!-- <input type="search" class="field origin ui-widget" id="input-origin" placeholder="Your Origin Place" required> -->
+                            <!-- <input type="text" class="field destination autocomplete"
+                                id="input-destination" placeholder="Your Destination Place" required> -->
+                            <input type="date" class="field date" id="input-date" placeholder="date">
+                            <button class="plan-btn" type="submit" onclick="fetchFlights(event)">Submit</button>
                         </div>
                         <div class="cards" id="holiday">
                             <div>
@@ -180,8 +188,6 @@
     <!--SCRIPT-->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"
-        type="text/javascript"></script>
     <script src="https://apis.google.com/js/platform.js?onload=onLoadGoogleCallback" async defer></script>
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

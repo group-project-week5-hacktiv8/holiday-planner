@@ -1,5 +1,7 @@
 let baseUrl = 'http://localhost:3000'
 
+let airports = []
+
 $(document).ready(function () {
     if (localStorage.access_token) {
         landingPage()
@@ -23,6 +25,8 @@ function home() {
 
 function planHoliday() {
     fetchHoliday()
+    autoCompleteDestination()
+    autoCompleteOrigin()
     $("#login-Register-Page").hide()
     $('#plan').show()
     $('#home').hide()
@@ -174,6 +178,7 @@ function fetchCorona() {
     })
         .done(result => {
             result.forEach(el => {
+                if (el.Provinsi !== 'Indonesia')
                     $('#covid').append(`      
                     <div class="box">
                         <h3>${el.Provinsi}</h3>
@@ -198,4 +203,113 @@ function fetchCorona() {
             console.log(err)
         })
 
+}
+
+function fetchFlights (event) {
+    event.preventDefault()
+    
+    const origin = $( "#input-origin option:selected" ).val();
+    const destination = $( "#input-destination option:selected" ).val();
+    const date = $("#input-date").val()
+    console.log(origin, destination, date)
+    $.ajax({
+        method: 'POST',
+        url: baseUrl + '/flights',
+        data: {
+            origin,
+            destination,
+            date
+        },
+        headers: {
+            access_token: localStorage.access_token
+        }
+    })
+    .done(result => {
+        result.forEach(el => {
+            $('#covid').append(`<table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Price</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>$</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+            </tbody>
+          </table>`)
+        })
+    })
+}
+
+function autoCompleteOrigin () {
+    const term = $('#term-origin').val() || 'Bali'
+    console.log('masuk autocomplete')
+    
+    $.ajax({
+        method: 'POST',
+        url: baseUrl + `/airports/${term}`,
+        headers: {
+            access_token: localStorage.access_token
+        }
+    })
+    .done(data => {
+        // console.log('masuk done', data)
+        $("#input-origin").empty()
+        data.forEach((el,i) => {
+            // console.log(el.Name, '<----')
+            airports[i] = el.name
+            $("#input-origin").append( $("<option>")
+            .val(el.Iata)
+            .html(el.Name)
+        );
+        })
+    })
+    .fail(err => {
+        console.log(err)
+    })
+}
+
+function autoCompleteDestination () {
+    const term = $('#term-destination').val() || 'Jakarta'
+    
+    $.ajax({
+        method: 'POST',
+        url: baseUrl + `/airports/${term}`,
+        headers: {
+            access_token: localStorage.access_token
+        }
+    })
+    .done(data => {
+        // console.log('masuk done', data)
+        $("#input-destination").empty()
+        data.forEach((el,i) => {
+            // console.log(el.Name, '<----')
+            airports[i] = el.name
+            $("#input-destination").append( $("<option>")
+            .val(el.Iata)
+            .html(el.Name)
+        );
+        })
+    })
+    .fail(err => {
+        console.log(err)
+    })
 }
