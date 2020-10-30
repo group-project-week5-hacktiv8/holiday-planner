@@ -38,6 +38,7 @@ _Request Body_
 _Response (200)_
 ```
 {
+  "message": "Login Success"
   "access_token": "<your access token>"
 }
 ```
@@ -75,7 +76,8 @@ _Request Body_
 _Response (201 - Created)_
 ```
 {
-  "id": <given id by system>,
+  "message": "Register Success"
+  "id": "<given id by system>",
   "email": "<posted email>"
 }
 ```
@@ -207,15 +209,16 @@ _Request Header_
 _Request Body_
 ```
 {
-  "origin": <"CGK">,
-  "destination": <"MDC">,
-  "date": <"2020-11-01">
+  "origin": "CGK",
+  "destination": "MDC",
+  "date": "2020-11-01"
 }
 ```
 
 _Response (200)_
 ```
-"Quotes",
+[
+  "Quotes",
     {
         "Price": <513559>,
         "Direct": <true>,
@@ -238,6 +241,7 @@ _Response (200)_
         "MaskapaiId": <...>,
         "MaskapaiName": <"....">
     },
+]
 ```
 
 _Response (500 - Bad Request)_
@@ -278,20 +282,42 @@ not needed
 
 _Response (200)_
 ```
-[
-    {
-        "Provinsi": "Aceh",
-        "Positif": 7373,
-        "Sembuh": 5037,
-        "Meninggal": 266
+{
+    "type": <"Feature">,
+    "properties": {
+        "FID": <1>,
+        "Kode_Provi": <11>,
+        "Provinsi": <"Aceh">,
+        "Kasus_Positif": <7373>,
+        "Kasus_Sembuh": <5037>,
+        "Kasus_Meninggal": <266>
     },
-    {
-        "Provinsi": "Sumatera Utara",
-        "Positif": 12925,
-        "Sembuh": 10546,
-        "Meninggal": 529
+    "geometry": {
+        "type": "Point",
+        "coordinates": [
+            <96.90952274800009>,
+            <4.225081892000048>
+        ]
+    }
+},
+{
+    "type": <"Feature">,
+    "properties": {
+        "FID": <...>,
+        "Kode_Provi": <...>,
+        "Provinsi": <"...">,
+        "Kasus_Positif": <...>,
+        "Kasus_Sembuh": <...>,
+        "Kasus_Meninggal": <...>
     },
-]
+    "geometry": {
+        "type": "Point",
+        "coordinates": [
+            <...>,
+            <...>
+        ]
+    }
+},
 ```
 
 _Response (500 - Bad Request)_
@@ -309,9 +335,9 @@ _Response (400)_
 ```
 
 ---
-### GET /airports/:term
+### POST /airports/:term
 
-> Get all data airports with specific city
+> Search all data airports with specific city
 
 _Request Params_
 ```
@@ -338,12 +364,6 @@ _Response (200)_
     "Name": "Ngurah Rai International Airport",
     "City": "Denpasar",
     "Iata": "DPS",
-    "Country": "Indonesia"
-},
-{
-    "Name": "Sultan Aji Muhammad Sulaiman Airport",
-    "City": "Balikpapan",
-    "Iata": "BPN",
     "Country": "Indonesia"
 },
 {
