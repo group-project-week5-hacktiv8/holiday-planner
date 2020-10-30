@@ -278,42 +278,20 @@ not needed
 
 _Response (200)_
 ```
-{
-    "type": <"Feature">,
-    "properties": {
-        "FID": <1>,
-        "Kode_Provi": <11>,
-        "Provinsi": <"Aceh">,
-        "Kasus_Positif": <7373>,
-        "Kasus_Sembuh": <5037>,
-        "Kasus_Meninggal": <266>
+[
+    {
+        "Provinsi": "Aceh",
+        "Positif": 7373,
+        "Sembuh": 5037,
+        "Meninggal": 266
     },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [
-            <96.90952274800009>,
-            <4.225081892000048>
-        ]
-    }
-},
-{
-    "type": <"Feature">,
-    "properties": {
-        "FID": <...>,
-        "Kode_Provi": <...>,
-        "Provinsi": <"...">,
-        "Kasus_Positif": <...>,
-        "Kasus_Sembuh": <...>,
-        "Kasus_Meninggal": <...>
+    {
+        "Provinsi": "Sumatera Utara",
+        "Positif": 12925,
+        "Sembuh": 10546,
+        "Meninggal": 529
     },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [
-            <...>,
-            <...>
-        ]
-    }
-},
+]
 ```
 
 _Response (500 - Bad Request)_

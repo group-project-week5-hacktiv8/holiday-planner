@@ -85,17 +85,16 @@ class ApiController {
     static getCorona(req, res, next) {
         axios.get('http://opendata.arcgis.com/datasets/0c0f4558f1e548b68a1c82112744bad3_0.geojson')
         .then(({ data }) => {
-            res.status(200).json(data)
-        })
-        .catch(err => {
-            next(err)
-        })
-    }
-
-    static getPicture(req, res, next){
-        axios.get(`https://pixabay.com/api/?key=${process.env.PIXABAY_ID}&q=holiday&image_type=photo`)
-        .then(({ data }) => {
-            res.status(200).json(data)
+            let newdata = []
+            data.features.forEach(el => {
+                newdata.push({
+                    Provinsi: el.properties.Provinsi,
+                    Positif: el.properties.Kasus_Posi,
+                    Sembuh: el.properties.Kasus_Semb,
+                    Meninggal: el.properties.Kasus_Meni 
+                })
+            })
+            res.status(200).json(newdata)
         })
         .catch(err => {
             next(err)

@@ -9,6 +9,7 @@ $(document).ready(function () {
 });
 
 function landingPage() {
+    $("#covid").hide()
     $("#landing-Page").show()
     $("#login-Register-Page").hide()
     $('#plan').hide()
@@ -28,9 +29,17 @@ function planHoliday() {
 }
 
 function loginRegisterPage() {
+    $("#covid").hide()
     $("#landing-Page").hide()
     $("#login-Register-Page").show()
     $('#plan').hide()
+}
+
+function fetchCorona() {
+    $("#covid").show()
+    $("#landing-Page").hide()
+    $("#login-Register-Page").hide()
+    fetchCoronxa()
 }
 
 function LoginClear() {
@@ -104,6 +113,13 @@ $(".btn-logout").click(function () {
     loginRegisterPage()
 })
 
+$(".plan-btn").click(function () {
+    fetchCorona()
+    $("#covid").show()
+    $("#landing-Page").hide()
+    $("#login-Register-Page").hide()
+})
+
 function onSignIn(googleUser) {
     var google_access_token = googleUser.getAuthResponse().id_token;
 
@@ -139,6 +155,42 @@ function fetchHoliday() {
                             <h5>${el.date}</h5>
                             <p>${el.name}</p>
                         </div>
+                `)
+            })
+        })
+        .fail(function (err) {
+            console.log(err)
+        })
+
+}
+
+function fetchCorona() {
+    $.ajax({
+        method: 'GET',
+        url: baseUrl + '/corona',
+        headers: {
+            access_token: localStorage.access_token
+        },
+    })
+        .done(result => {
+            result.forEach(el => {
+                    $('#covid').append(`      
+                    <div class="box">
+                        <h3>${el.Provinsi}</h3>
+                        <h5>Provinsi</h5>
+                    </div>
+                    <div class="box">
+                        <h3>${el.Positif}</h3>
+                        <h5>Positif</h5>
+                    </div>
+                    <div class="box">
+                        <h3>${el.Meninggal}</h3>
+                        <h5>Meninggal</h5>
+                    </div>
+                    <div class="box">
+                        <h3>${el.Sembuh}</h3>
+                        <h5>Sembuh</h5>
+                    </div>
                 `)
             })
         })

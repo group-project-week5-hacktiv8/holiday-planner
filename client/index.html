@@ -9,8 +9,7 @@
     <title>Holiday Planner</title>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <link rel="stylesheet" type="text/css" href="./slick/slick.css">
-    <link rel="stylesheet" type="text/css" href="./slick/slick-theme.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./font/flaticon.css"> -->
     <link rel="stylesheet" href="./css/style.css" />
 </head>
 
@@ -64,11 +63,11 @@
                     <form>
                         <h1>Plan your Holiday</h1>
                         <div class="form-box">
-                            <input type="search" class="field origin" placeholder="Your Origin Place">
+                            <input type="search" class="field origin" placeholder="Your Origin Place" required>
                             <input type="text" class="field destination autocomplete"
-                                placeholder="Your Destination Place">
+                                placeholder="Your Destination Place" required>
                             <input type="date" class="field date" placeholder="date">
-                            <button class="plan-btn" type="submit">Submit</button>
+                            <button class="plan-btn" type="submit" onclick="fetchCorona()">Submit</button>
                         </div>
                         <div class="cards" id="holiday">
                             <div>
@@ -95,6 +94,15 @@
                     <a class="hamburger-menu btn-logout" href="#" style="--i: 0.3s;">Logout</a>
                 </li>
             </ul>
+        </div>
+    </div>
+
+    <div class="cov-cont" id="covid">
+        <div class="covid-container">
+            <div class="fullbox">
+                <h1>Coronavirus (Covid-19) Cases Indonesia</h1>
+                <p>Stay healthy, keep your distance, and adhere to health protocols by doing social distancing and wearing a mask</p>
+            </div>
         </div>
     </div>
 
@@ -164,6 +172,10 @@
             </div>
         </div>
     </div>
+
+    
+
+
 
     <!--SCRIPT-->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
