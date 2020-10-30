@@ -1,9 +1,10 @@
 {
   "development": {
     "username": "postgres",
-    "password": "290693",
+    "password": "dacokeh21",
     "database": "holiday-planner",
     "host": "127.0.0.1",
+    "port": "8080",
     "dialect": "postgres"
   },
   "test": {
